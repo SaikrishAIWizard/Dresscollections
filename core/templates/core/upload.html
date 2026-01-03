@@ -1,0 +1,85 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Upload Dress</h2>
+
+    <!-- Messages Display -->
+    {% if messages %}
+        <div class="row">
+            <div class="col-md-8">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show mb-3" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Upload Form -->
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Dress Details</h5>
+            </div>
+            <div class="card-body">
+                {{ dress_form.name.label_tag }}
+                {{ dress_form.name }}
+                {{ dress_form.price.label_tag }}
+                {{ dress_form.price }}
+                {{ dress_form.description.label_tag }}
+                {{ dress_form.description }}
+
+                <div class="mt-3">
+                    <label class="form-label fw-bold">Available Sizes</label>
+                    {{ dress_form.sizes }}
+                    <small class="text-muted d-block mt-2">Select one or more sizes (S, M, L, XL, XXL)</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0"><i class="fas fa-images me-2"></i>Upload Images</h5>
+            </div>
+            <div class="card-body">
+                <label class="form-label fw-bold">Select Images (JPEG, JPG, PNG - Max 5)</label>
+                <input type="file" name="images" accept="image/jpeg,image/png" multiple class="form-control">
+                <small class="text-muted d-block mt-2">Max 5 images, 5MB each (JPEG, JPG, PNG)</small>
+                {% if image_form.images.errors %}
+                    <div class="text-danger mt-2">{{ image_form.images.errors }}</div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="btn btn-success btn-lg px-5">
+                <i class="fas fa-save me-2"></i>Save Dress
+            </button>
+        </div>
+    </form>
+
+    <!-- Static Tip - NO URL TAGS -->
+    <div class="alert alert-info mt-5" role="alert">
+        <i class="fas fa-lightbulb me-2"></i>
+        <strong>Success Tip:</strong> After saving, visit <strong>/admin/</strong> to see your uploaded dress and images.
+    </div>
+</div>
+
+<style>
+    .card { border: none; border-radius: 12px; }
+    .card-header { border-radius: 12px 12px 0 0 !important; }
+    .btn-success { 
+        background: linear-gradient(135deg, #28a745 0%, #20c997 100%); 
+        border: none; 
+        transition: all 0.3s; 
+    }
+    .btn-success:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(40,167,69,0.3); }
+    .alert-info { background: linear-gradient(135deg, #0dcaf0 0%, #17a2b8 100%); color: #000; border: none; }
+</style>
+{% endblock %}

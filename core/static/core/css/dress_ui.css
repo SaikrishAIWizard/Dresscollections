@@ -1,0 +1,176 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: transparent;
+}
+
+
+.home-bg {
+    position: relative;
+    background-image: url("../images/bg1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    padding: 40px 0;
+}
+
+.home-bg::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);  /* dark overlay */
+}
+
+.home-bg > .container {
+    position: relative;
+    z-index: 1;
+}
+
+
+/* CATEGORY TITLE */
+.category-title {
+    font-weight: 700;
+    border-left: 5px solid #0d6efd;
+    padding-left: 12px;
+    margin-bottom: 20px;
+}
+
+/* DRESS CARD */
+.dress-card {
+    border-radius: 16px;
+    border: none;
+    background: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dress-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+}
+
+/* IMAGE */
+.dress-image {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    background: #eee;
+}
+
+/* DETAILS */
+.dress-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.dress-price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #28a745;
+}
+
+/* SIZES */
+.dress-sizes {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+.size-badge {
+    background: #0d6efd;
+    color: white;
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 20px;
+}
+
+/* MODAL */
+.modal-content {
+    border-radius: 20px;
+}
+
+#modalImages img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 12px;
+}
+
+#modalPrice {
+    font-size: 20px;
+    font-weight: bold;
+    color: #28a745;
+}
+
+
+/* MODAL IMAGE CLICK EFFECT */
+#modalImages img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+#modalImages img:hover {
+    transform: scale(1.05);
+}
+
+/* IMAGE INSIDE DRESS MODAL */
+#modalImages img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+#modalImages img:hover {
+    transform: scale(1.05);
+}
+
+/* FULLSCREEN IMAGE */
+.preview-image {
+    max-width: 95vw;
+    max-height: 95vh;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+
+/* LOGO */
+.site-logo {
+    height: 45px;
+    width: auto;
+}
+
+.site-title {
+    font-size: 20px;
+    letter-spacing: 0.5px;
+}
+
+/* Navigation Bar */
+.premium-navbar {
+    background: rgba(15, 15, 15, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    padding: 0.75rem 0;
+    z-index: 1030;
+}
+
+.site-logo {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.site-title {
+    font-size: 1.2rem;
+    color: #ffffff;
+    letter-spacing: 0.5px;
+}
+
+.text-accent {
+    color: #ffc107;
+}
+
+.navbar-brand:hover {
+    transform: translateY(-1px);
+    transition: 0.2s ease;
+}

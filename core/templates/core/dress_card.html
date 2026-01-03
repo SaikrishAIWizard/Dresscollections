@@ -1,0 +1,41 @@
+<div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card dress-card h-100"
+         onclick="showDressDetails(
+            {{ dress.id }},
+            '{{ dress.name|escapejs }}',
+            {{ dress.price }},
+            '{{ dress.description|escapejs }}',
+            [{% for img in dress.images.all %}
+                '{{ img.image.url }}'{% if not forloop.last %},{% endif %}
+            {% endfor %}],
+            [{% for size in dress.sizes.all %}
+                '{{ size.name }}'{% if not forloop.last %},{% endif %}
+            {% endfor %}]
+         )">
+
+        <!-- IMAGE -->
+        {% if dress.images.all %}
+            <img src="{{ dress.images.first.image.url }}" class="dress-image" alt="{{ dress.name }}">
+        {% else %}
+            <div class="dress-image d-flex align-items-center justify-content-center text-muted">
+                No Image
+            </div>
+        {% endif %}
+
+        <!-- DETAILS -->
+        <div class="card-body">
+            <h6 class="dress-title">{{ dress.name }}</h6>
+            <p class="dress-price">₹{{ dress.price }}</p>
+
+            {% if dress.sizes.all %}
+            <div class="dress-sizes">
+                {% for size in dress.sizes.all %}
+                    <span class="size-badge">{{ size.name }}</span>
+                {% endfor %}
+            </div>
+            {% else %}
+                <small class="text-muted">No sizes</small>
+            {% endif %}
+        </div>
+    </div>
+</div>
