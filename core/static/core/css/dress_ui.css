@@ -174,3 +174,118 @@ body {
     transform: translateY(-1px);
     transition: 0.2s ease;
 }
+
+/* ============================= */
+/* FLOATING WHATSAPP BUTTON */
+/* ============================= */
+
+.whatsapp-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+    background-color: #25D366;
+    color: #fff;
+    border-radius: 50%;
+    text-align: center;
+    font-size: 28px;
+    line-height: 56px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.whatsapp-float:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+
+/* ============================= */
+/* NAVBAR CONTACT BUTTON */
+/* ============================= */
+
+.contact-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+    border: none;
+    padding: 8px 18px;
+    font-weight: 600;
+    border-radius: 30px;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+}
+
+.contact-btn:hover {
+    background: linear-gradient(135deg, #128C7E, #25D366);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(37, 211, 102, 0.55);
+}
+
+@media (max-width: 767px) {
+    .contact-btn {
+        padding: 6px 14px;
+        font-size: 14px;
+    }
+}
+
+.modal-size {
+    padding: 8px 14px;
+    border: 1px solid #007bff;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    color: #007bff;
+    background: #fff;
+    transition: all 0.2s;
+}
+
+.modal-size:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+.modal-size.active {
+    background: #007bff;
+    color: #fff;
+}
+
+/* CART ICON NAVBAR */
+.cart-link {
+    color: #ffffff !important;
+    position: relative;
+}
+
+.cart-link i {
+    color: #ffffff;
+}
+
+.cart-link:hover i {
+    color: #28a745; /* WhatsApp green accent */
+}
+
+/* CART BADGE */
+#cartCount {
+    font-size: 11px;
+    padding: 4px 6px;
+}
+
+.size-badge {
+    padding: 6px 14px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-right: 8px;
+    user-select: none;
+}
+
+.size-badge.active {
+    background-color: #000;
+    color: #fff;
+    border-color: #000;
+}
+
+
+
+
