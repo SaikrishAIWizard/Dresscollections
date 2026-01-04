@@ -17,104 +17,109 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{% static 'core/css/dress_ui.css' %}">
-
     {% block extra_css %}{% endblock %}
 </head>
+
 <body>
 
-<!-- NAVBAR -->
+<!-- ===================== NAVBAR ===================== -->
 <nav class="navbar navbar-expand-lg premium-navbar fixed-top">
     <div class="container">
 
-        <!-- LOGO -->
-        <a class="navbar-brand d-flex align-items-center gap-2" href="/">
-            <img src="{% static 'core/images/logo.jpeg' %}" class="site-logo" />
-            <span class="fw-semibold site-title">
-                PLC <span class="text-accent">Premium</span> Store
-            </span>
-        </a>
+        <!-- FLEX WRAPPER -->
+        <div class="d-flex align-items-center justify-content-between w-100">
 
-        <!-- CONTACT US (ALWAYS VISIBLE) -->
-        <a
-            href="https://wa.me/919553501265?text=Hi%2C%20I%27m%20interested%20in%20your%20dresses"
-            target="_blank"
-            class="btn btn-success contact-btn d-lg-none"
-        >
-            <i class="fab fa-whatsapp"></i>
-        </a>
+            <!-- LOGO (LEFT) -->
+            <a class="navbar-brand d-flex align-items-center gap-2" href="/">
+                <img src="{% static 'core/images/logo.jpeg' %}" class="site-logo" />
+                <span class="fw-semibold site-title">
+                    PLC <span class="text-accent">Premium</span> Store
+                </span>
+            </a>
 
-        <!-- TOGGLER -->
-        <button class="navbar-toggler ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#premiumNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <!-- RIGHT ICONS -->
+            <div class="d-flex align-items-center">
 
-        <!-- COLLAPSIBLE MENU (DESKTOP) -->
+                <!-- CART (ALWAYS VISIBLE) -->
+                <a href="javascript:void(0)"
+                   class="nav-link cart-link position-relative me-3"
+                   onclick="showCartModal()">
+                    <i class="fas fa-shopping-cart fa-lg"></i>
+                    <span id="cartCount"
+                          class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
+                          style="display:none;">
+                        0
+                    </span>
+                </a>
+
+                <!-- CONTACT (DESKTOP ONLY) -->
+                <a href="https://wa.me/919553501265?text=Hi%2C%20I%27m%20interested%20in%20your%20dresses"
+                   target="_blank"
+                   class="btn btn-success contact-btn d-none d-lg-inline me-3">
+                    <i class="fab fa-whatsapp me-1"></i> Contact
+                </a>
+
+                <!-- TOGGLER -->
+                <button class="navbar-toggler" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#premiumNavbar">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- COLLAPSIBLE MENU -->
         <div class="collapse navbar-collapse justify-content-end" id="premiumNavbar">
-            <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
-                <!-- CART ICON -->
-                <li class="nav-item me-3 position-relative">
-                    <a href="javascript:void(0)" class="nav-link cart-link" onclick="showCartModal()">
-                        <i class="fas fa-shopping-cart fa-lg"></i>
-                        <span id="cartCount"
-                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger"
-                            style="display:none;">
-                            0
-                        </span>
-                    </a>
+            <ul class="navbar-nav mt-3 mt-lg-0">
 
-                </li>
-
-                <!-- CONTACT BUTTON -->
-                <li class="nav-item d-none d-lg-block">
-                    <a
-                        href="https://wa.me/919398676614?text=Hi%2C%20I%27m%20interested%20in%20your%20dresses"
-                        target="_blank"
-                        class="btn btn-success contact-btn ms-lg-3"
-                    >
+                <!-- MOBILE CONTACT -->
+                <li class="nav-item d-lg-none">
+                    <a href="https://wa.me/919553501265"
+                       target="_blank"
+                       class="btn btn-success w-100 mt-2">
                         <i class="fab fa-whatsapp me-1"></i> Contact Us
                     </a>
                 </li>
 
             </ul>
-
         </div>
 
     </div>
 </nav>
 
-
-
-
+<!-- ===================== PAGE CONTENT ===================== -->
 {% block content %}{% endblock %}
 
-<!-- Cart Modal -->
-<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="cartModalLabel" aria-hidden="true">
+<!-- ===================== CART MODAL ===================== -->
+<div class="modal fade" id="cartModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content">
+
             <div class="modal-header">
-                <h5 class="modal-title" id="cartModalLabel">Your Cart</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title">Your Cart</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+
             <div class="modal-body">
                 <div id="cartItems"></div>
             </div>
-            <div class="modal-footer d-flex justify-content-between align-items-center">
-                <div id="totalPrice" class="fw-bold me-3"></div>
+
+            <div class="modal-footer d-flex justify-content-between">
+                <div id="totalPrice" class="fw-bold"></div>
                 <div>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-success" onclick="sendCartToWhatsApp()">Checkout</button>
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button class="btn btn-success" onclick="sendCartToWhatsApp()">Checkout</button>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<!-- ===================== SCRIPTS ===================== -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-<!-- Custom JS -->
 <script src="{% static 'core/js/dress_modal.js' %}"></script>
-
 {% block extra_js %}{% endblock %}
+
 </body>
 </html>
