@@ -3,16 +3,18 @@ let currentImages = [];
 let currentImageIndex = 0;
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
 updateCartCount();
-let currentDress = {};
+let currentProduct = {};  // ✅ Changed from currentDress
 let selectedSize = null;
 
-function showDressDetails(id, name, price, description, images, sizes) {
-    currentDress = { id, name, price };
+// ✅ Renamed from showDressDetails
+function showProductDetails(id, name, price, description, images, sizes) {
+    currentProduct = { id, name, price };  // ✅ Changed from currentDress
     currentImages = images || [];
     currentImageIndex = 0;
     selectedSize = null;
 
-    document.getElementById("dressModalLabel").innerText = name;
+    // ✅ Updated modal IDs
+    document.getElementById("productModalLabel").innerText = name;
     document.getElementById("modalPrice").innerText = "₹" + price;
     document.getElementById("modalDescription").innerText =
         description || "No description available";
@@ -34,7 +36,7 @@ function showDressDetails(id, name, price, description, images, sizes) {
         imgBox.appendChild(image);
     });
 
-    /* ================= SIZES (FIXED) ================= */
+    /* ================= SIZES ================= */
     const sizeBox = document.getElementById("modalSizes");
     sizeBox.innerHTML = "";
 
@@ -44,7 +46,6 @@ function showDressDetails(id, name, price, description, images, sizes) {
         span.innerText = size;
 
         span.addEventListener("click", () => {
-            // ✅ FIX: scope selection to modalSizes only
             sizeBox.querySelectorAll(".size-badge")
                    .forEach(s => s.classList.remove("active"));
 
@@ -57,12 +58,9 @@ function showDressDetails(id, name, price, description, images, sizes) {
         sizeBox.appendChild(span);
     });
 
-    new bootstrap.Modal(document.getElementById("dressModal")).show();
+    // ✅ Updated modal ID
+    new bootstrap.Modal(document.getElementById("productModal")).show();
 }
-
-
-
-
 
 /* FULLSCREEN IMAGE FUNCTION */
 function openImagePreview(index) {
@@ -106,7 +104,6 @@ function prevImage() {
         `${currentImageIndex + 1} / ${currentImages.length}`;
 }
 
-
 /* Keyboard navigation */
 document.addEventListener("keydown", (e) => {
     const modal = document.getElementById("imagePreviewModal");
@@ -116,38 +113,35 @@ document.addEventListener("keydown", (e) => {
     }
 });
 
-
-
 function addToCartFromModal() {
     if (!selectedSize) {
+        // ✅ Updated modal ID
         new bootstrap.Modal(
             document.getElementById("sizeAlertModal")
         ).show();
         return;
     }
 
-    // Add current dress with selected size to cart and persist
+    // Add current product with selected size to cart
     cart = JSON.parse(localStorage.getItem("cart")) || cart;
-    cart.push({ ...currentDress, size: selectedSize });
+    cart.push({ ...currentProduct, size: selectedSize });  // ✅ Changed from currentDress
     localStorage.setItem("cart", JSON.stringify(cart));
     updateCartCount();
 
-    // Close the dress modal
-    const dm = document.getElementById("dressModal");
-    const modalInstance = bootstrap.Modal.getInstance(dm);
+    // Close the product modal
+    const pm = document.getElementById("productModal");  // ✅ Changed ID
+    const modalInstance = bootstrap.Modal.getInstance(pm);
     if (modalInstance) modalInstance.hide();
 
-    // ✅ Styled success feedback (REPLACES alert)
+    // Success feedback
     const successModalEl = document.getElementById("cartSuccessModal");
     const successModal = new bootstrap.Modal(successModalEl);
     successModal.show();
 
-    // Optional: auto-close after 2 seconds
     setTimeout(() => {
         successModal.hide();
     }, 2000);
 }
-
 
 // UPDATE CART COUNT
 function updateCartCount() {
@@ -161,7 +155,6 @@ function updateCartCount() {
         cartCount.style.display = "none";
     }
 }
-
 
 // BUY NOW → WhatsApp
 function buyNow() {
@@ -183,11 +176,9 @@ function buyNow() {
 
     msg += `💰 *Total: ₹${total}*`;
 
-    const phone = "919553501265"; // change this
+    const phone = "919553501265";
     window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
-    
 }
-
 
 function sendCartToWhatsApp() {
     let cartItems = JSON.parse(localStorage.getItem("cart")) || [];
@@ -209,7 +200,7 @@ function sendCartToWhatsApp() {
 
     message += `💰 *Total Amount: ₹${total}*`;
 
-    const phoneNumber = "919553501265"; // replace with your WhatsApp number
+    const phoneNumber = "919553501265";
     const whatsappURL = `https://wa.me/${phoneNumber}?text=${message}`;
 
     window.open(whatsappURL, "_blank");
@@ -269,7 +260,7 @@ function toggleDescription() {
 }
 
 function openImagePreviewFromHome(event, images) {
-    event.stopPropagation(); // prevents dress modal opening
+    event.stopPropagation();
 
     if (!images || images.length === 0) {
         console.error("No images found");
@@ -284,6 +275,3 @@ function openImagePreviewFromHome(event, images) {
 
     new bootstrap.Modal(document.getElementById("imagePreviewModal")).show();
 }
-
-
-

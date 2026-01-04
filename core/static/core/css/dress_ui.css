@@ -1,7 +1,7 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: transparent;
-    padding-top: 90px;   /* FIX for fixed navbar */
+    padding-top: 76px;   /* FIX for fixed navbar */
     margin: 0;
 }
 
@@ -301,6 +301,8 @@ body {
         font-size: 15px;
     }
 }
+
+
 
 
 

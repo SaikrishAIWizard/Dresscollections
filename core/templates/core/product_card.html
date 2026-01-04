@@ -1,0 +1,55 @@
+<!-- core/product_card.html -->
+<div class="col-md-6 col-lg-4 col-xl-3">
+    <div class="card dress-card h-100"
+         onclick="showProductDetails(
+            {{ product.id }},
+            '{{ product.name|escapejs }}',
+            {{ product.price }},
+            '{{ product.description|escapejs }}',
+            {% comment %} ✅ Unified image logic {% endcomment %}
+            {% if product.images.exists %}
+                <!-- Women: uploaded images -->
+                [{% for img in product.images.all %}
+                    '{{ img.image.url }}'{% if not forloop.last %},{% endif %}
+                {% endfor %}]
+            {% elif product.image_urls %}
+                <!-- Men/Handmade: external URLs -->
+                {{ product.image_urls|safe }}
+            {% else %}
+                []
+            {% endif %},
+            [{% for size in product.sizes.all %}
+                '{{ size.name }}'{% if not forloop.last %},{% endif %}
+            {% endfor %}]
+         )">
+
+        <!-- ✅ Unified image display -->
+        {% if product.images.first %}
+            <!-- Women: first uploaded image -->
+            <div class="dress-image-wrapper">
+                <img src="{{ product.images.first.image.url }}"
+                     class="dress-image"
+                     alt="{{ product.name }}">
+            </div>
+        {% elif product.image_urls %}
+            <!-- Men/Handmade: first external URL -->
+            <div class="dress-image-wrapper">
+                <img src="{{ product.image_urls.0 }}"
+                     class="dress-image"
+                     alt="{{ product.name }}"
+                     onerror="this.src='/static/core/images/no-image.jpg'">
+            </div>
+        {% else %}
+            <!-- No image fallback -->
+            <div class="dress-image d-flex align-items-center justify-content-center text-muted">
+                No Image
+            </div>
+        {% endif %}
+
+        <!-- Product info (unchanged) -->
+        <div class="card-body text-center">
+            <h6 class="dress-title">{{ product.name }}</h6>
+            <p class="dress-price">₹{{ product.price }}</p>
+        </div>
+    </div>
+</div>

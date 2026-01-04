@@ -1,7 +1,10 @@
 body {
     font-family: 'Poppins', sans-serif;
     background: transparent;
+    padding-top: 90px;   /* FIX for fixed navbar */
+    margin: 0;
 }
+
 
 
 .home-bg {
@@ -94,7 +97,14 @@ body {
     height: 180px;
     object-fit: cover;
     border-radius: 12px;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
 }
+
+#modalImages img:hover {
+    transform: scale(1.05);
+}
+
 
 #modalPrice {
     font-size: 20px;
@@ -103,25 +113,7 @@ body {
 }
 
 
-/* MODAL IMAGE CLICK EFFECT */
-#modalImages img {
-    cursor: zoom-in;
-    transition: transform 0.3s ease;
-}
 
-#modalImages img:hover {
-    transform: scale(1.05);
-}
-
-/* IMAGE INSIDE DRESS MODAL */
-#modalImages img {
-    cursor: zoom-in;
-    transition: transform 0.3s ease;
-}
-
-#modalImages img:hover {
-    transform: scale(1.05);
-}
 
 /* FULLSCREEN IMAGE */
 .preview-image {
@@ -134,14 +126,19 @@ body {
 
 /* LOGO */
 .site-logo {
-    height: 45px;
-    width: auto;
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
 }
 
+
 .site-title {
-    font-size: 20px;
+    font-size: 1.2rem;
+    color: #ffffff;
     letter-spacing: 0.5px;
 }
+
 
 /* Navigation Bar */
 .premium-navbar {
@@ -285,6 +282,28 @@ body {
     color: #fff;
     border-color: #000;
 }
+
+/* ============================= */
+/* DESKTOP NAVBAR SPACING FIX */
+/* ============================= */
+@media (min-width: 992px) {
+
+    .navbar-brand {
+        margin-right: 40px;
+    }
+
+    .cart-link {
+        margin-right: 18px;
+    }
+
+    .contact-btn {
+        padding: 8px 20px;
+        font-size: 15px;
+    }
+}
+
+
+
 
 
 

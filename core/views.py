@@ -1,15 +1,31 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import DressForm, MultipleImageUploadForm
-from .models import Dress, DressImage
+from .models import (
+    Dress, DressImage, 
+    MenProduct, 
+    HandmadeItem
+)
 from django.contrib import messages
 import os
 
 
 def home(request):
-    dresses = Dress.objects.prefetch_related("images", "sizes").order_by("-price")
+    # ✅ Get category from URL param (women/men/handmade)
+    category = request.GET.get('category', 'women')
     
-    # Organize dresses by price category (high to low within each)
+    # ✅ Query appropriate model based on category
+    if category == 'women':
+        products = Dress.objects.prefetch_related("images", "sizes").order_by("-created_at")
+    elif category == 'men':
+        products = MenProduct.objects.prefetch_related("sizes").order_by("-created_at")
+    elif category == 'handmade':
+        products = HandmadeItem.objects.prefetch_related("sizes").order_by("-created_at")
+    else:
+        # Default to women
+        products = Dress.objects.prefetch_related("images", "sizes").order_by("-created_at")
+        category = 'women'
+    
+    # ✅ Organize products by price category (high to low within each)
     price_categories = {
         'budget': [],
         'mid_range': [],
@@ -17,20 +33,39 @@ def home(request):
         'luxury': []
     }
     
-    for dress in dresses:
-        if dress.price < 500:
-            price_categories['budget'].append(dress)
-        elif dress.price < 1000:
-            price_categories['mid_range'].append(dress)
-        elif dress.price < 2000:
-            price_categories['premium'].append(dress)
+    for product in products:
+        if product.price < 500:
+            price_categories['budget'].append(product)
+        elif product.price < 1000:
+            price_categories['mid_range'].append(product)
+        elif product.price < 2000:
+            price_categories['premium'].append(product)
         else:
-            price_categories['luxury'].append(dress)
+            price_categories['luxury'].append(product)
     
-    return render(request, "core/home.html", {
-        "dresses": dresses,
-        "price_categories": price_categories
-    })
+    # ✅ Pass unified context
+    context = {
+        "products": products,  # ✅ Changed from "dresses"
+        "price_categories": price_categories,
+        "selected_category": category,  # ✅ For dynamic titles & selector
+        "categories": [  # ✅ For navbar dropdown
+            ("women", "Women Dresses"),
+            ("men", "Men Collection"), 
+            ("handmade", "Hand Made Items")
+        ]
+    }
+    
+    return render(request, "core/home.html", context)
 
 
+# Optional: Admin-only views (if you want to keep forms later)
+@login_required
+def add_dress(request):
+    """Future use - currently using Django Admin"""
+    return redirect("admin:index")
 
+
+@login_required
+def upload_images(request):
+    """Future use - currently using Django Admin"""
+    return redirect("admin:index")
